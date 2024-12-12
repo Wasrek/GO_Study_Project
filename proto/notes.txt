@@ -1,0 +1,29 @@
+build proto -> go lang (in gen.sh, you may want to chmod +x gen.sh) 
+protoc calculator.proto --go_out=../server(for end points) --go-grpc_out=../server(for services)
+services folder generated at server (do NOT edit)
+
+tag is IMPORTANT
+don't change the tags for existing fields
+if you edit the field name of an old tag and update it in server only, client will just ignore the updated name
+create new tag instead, do not use the same old tag
+
+Viewing Protocol Buffers (Protobuf) as a name-based serialization format that has replaced names with numeric tags is a helpful starting point but misses some critical nuances.
+1. Field Names Are for Human Readability, Not Functionality
+2. The Importance of Numeric Tags
+3. Backward and Forward Compatibility
+4. Field Reordering and Optimization
+5. Reserved Tags and Field Names
+
+Tags Are the Key Identifiers: Always think of Protobuf as tag-based, not name-based. The numeric tags carry all the functional importance.
+Field Names Are Ephemeral: They help developers but don't exist in the serialized data.
+Changing Tags Is Risky: It can break compatibility with existing data or clients.
+Avoid Reusing Tags: Even if you change both the client and server, reusing tags can cause issues with old data or unforeseen interactions.
+Protobuf Is Designed for Compactness: The numeric-tag approach prioritizes efficient serialization, which is different from name-based formats like JSON or XML.
+
+If a field is no longer needed but you want to maintain compatibility
+mark it as reserved
+reserved 1;
+reserved "name";
+to protect people from using it
+
+also, avoid change old tag data type

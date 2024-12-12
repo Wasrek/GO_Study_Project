@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package services;//proto package
+option go_package="./services";//go package
+
+service Calculator {
+    rpc Hello(HelloRequest) returns(HelloResponse); //rpc -> 2 parts {request and respond}
+}
+
+message HelloRequest {
+    string name = 1;//tag = 1 name is a request
+}// what you want from client
+
+message HelloResponse {
+    string result = 1;//tag starting from 1 this tag and name tag in request is different
+}
+//protobuf -> define endpoint interface, protocol of 2 services how it could work tgt

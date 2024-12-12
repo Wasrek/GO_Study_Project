@@ -1,0 +1,21 @@
+open terminal at server folder then
+use 'go mod init server'
+to initiate new go.mod: module server
+
+(for your first project)
+pkg.go.dev -> protobuf -> protoc-gen-go
+go get google.golang.org/protobuf/cmd/protoc-gen-go
+Install gRPC tool in project
+go install google.golang.org/protobuf/cmd/protoc-gen-go
+go install google.golang.org/grpc/cmd/protoc-gen-go-grpc
+
+use
+'go run .' to run server
+
+Install Evans gRPC client for macOS(like postman but for grpc)
+brew tap ktr0731/evans
+brew install evans
+
+//we're using this proto
+evans --proto=./calculator.proto
+//host(localhost) & port
