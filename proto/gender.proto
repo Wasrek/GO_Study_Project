@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package services;//proto package
+option go_package="./services";//go package
+
+//enum -> Pascal case field -> CAPITAL_SNAKE_CASE
+//enum index(not tag) start with 0
+//default value = 0 so set UNKNOWN = 0 to separate it from other would be good
+enum Gender {
+    UNKNOWN = 0;
+    MALE = 1;
+    FEMALE = 2;
+}

@@ -1,17 +1,67 @@
 syntax = "proto3";
 
+import "gender.proto";
+import "google/protobuf/timestamp.proto";
+
 package services;//proto package
 option go_package="./services";//go package
 
 service Calculator {
+    //Hello = Unary API Type: 1 request 2 respond
     rpc Hello(HelloRequest) returns(HelloResponse); //rpc -> 2 parts {request and respond}
+    //Server streaming API: 1 request many response
+    rpc Fibonacci(FibonacciRequest) returns(stream FibonacciResponse);
+    //Client streaming API: stream request 1 respond
+    rpc Average(stream AverageRequest) returns(AverageResponse);
+    //Bidirectional stream request stream respond
+    rpc Sum(stream SumRequest) returns(stream SumResponse);
 }
 
+//message -> use Pascal case(Camel + inital capital)
+//field -> use snake case in proto, when you build it will change to Pascal case for you
 message HelloRequest {
     string name = 1;//tag = 1 name is a request
+    google.protobuf.Timestamp created_date = 2;
 }// what you want from client
 
 message HelloResponse {
     string result = 1;//tag starting from 1 this tag and name tag in request is different
 }
 //protobuf -> define endpoint interface, protocol of 2 services how it could work tgt
+
+message Person {
+    string name = 1;
+    uint32 age = 2; //unit -> no negative snit -> better than int for num with negative values
+    float weight = 3;
+    double height = 4;
+    bool active = 5;
+    repeated string phone_number = 6;//list, array of string
+    Gender gender = 7;
+    map<string, string> countries = 8;
+    //according to timestamp file its package is google.protobuf
+    google.protobuf.Timestamp created_date = 9;
+}
+
+message FibonacciRequest {
+    uint32 n = 1;
+}
+
+message FibonacciResponse {
+    uint32 result = 1;
+}
+
+message AverageRequest {
+    double number = 1;
+}
+
+message AverageResponse {
+    double result = 1;
+}
+
+message SumRequest {
+    int32 number = 1;
+}
+
+message SumResponse {
+    int32 result = 1;
+}
